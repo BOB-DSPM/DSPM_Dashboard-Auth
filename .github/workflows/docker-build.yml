@@ -6,7 +6,7 @@ on:
     paths:
       - 'DSPM_Dashboard-Auth/**'
       - 'DSPM_Dashboard-Auth/Dockerfile'
-      - '.github/workflows/docker-build.yml'
+      - '.github/workflows/auth-deploy.yml'
 
 jobs:
   build-and-deploy:
@@ -47,3 +47,21 @@ jobs:
             JWT_REFRESH_SECRET=${{ secrets.JWT_REFRESH_SECRET }}
             JWT_EXPIRES_IN=${{ secrets.JWT_EXPIRES_IN }}
             JWT_REFRESH_EXPIRES_IN=${{ secrets.JWT_REFRESH_EXPIRES_IN }}
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig \
+            --region ap-northeast-2 \
+            --name ${{ secrets.EKS_CLUSTER_NAME }} \
+            --role-arn arn:aws:iam::651706765732:role/EksAdminRole
+
+      - name: Rollout restart auth
+        run: |
+          kubectl rollout restart deployment auth -n dspm
