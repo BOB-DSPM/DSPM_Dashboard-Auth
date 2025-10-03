@@ -6,7 +6,7 @@ on:
     paths:
       - 'DSPM_Dashboard-Auth/**'
       - 'DSPM_Dashboard-Auth/Dockerfile'
-      - '.github/workflows/auth-deploy.yml'
+      - '.github/workflows/docker-build.yml'
 
 jobs:
   build-and-deploy:
