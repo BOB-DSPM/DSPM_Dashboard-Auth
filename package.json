@@ -1,0 +1,29 @@
+{
+  "name": "dspm-auth-service",
+  "version": "1.0.0",
+  "description": "DSPM Authentication Service using Firebase Auth for lineage, analyzer, collector integration",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "test": "jest"
+  },
+  "keywords": ["dspm", "authentication", "jwt", "express"],
+  "author": "DSPM Team",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "firebase-admin": "^11.10.1",
+    "cors": "^2.8.5",
+    "helmet": "^7.0.0",
+    "express-rate-limit": "^6.10.0",
+    "dotenv": "^16.3.1",
+    "express-validator": "^7.0.1",
+    "winston": "^3.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.6.4",
+    "supertest": "^6.3.3"
+  }
+}
